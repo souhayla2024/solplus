@@ -52,7 +52,7 @@ class RegistrationController extends AbstractController
         }
 
         if (!empty($errors)) {
-            return $this->render('registration/register.html.twig', [
+            return $this->render('administration/register.html.twig', [
                 'errors' => $errors,
                 'data' => $data,
             ]);
