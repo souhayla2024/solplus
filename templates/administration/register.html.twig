@@ -1,38 +1,13 @@
-<!DOCTYPE html>
-<html
-  lang="fr"
-  class="layout-wide customizer-hide"
-  dir="ltr"
-  data-skin="default"
-  data-assets-path="{{ asset('assets/assets/') }}/"
-  data-template="vertical-menu-template"
-  data-bs-theme="light">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+{% extends 'administration/base.html.twig' %}
 
-    <title>Créer un compte | Sneat - Dashboard</title>
+{% block title %}Créer un compte {% endblock %}
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/assets/img/favicon/favicon.ico') }}" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet" />
-
-    <link rel="stylesheet" href="{{ asset('assets/assets/vendor/fonts/iconify-icons.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/assets/vendor/css/core.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/assets/css/demo.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+{% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('assets/assets/vendor/css/pages/page-auth.css') }}" />
+{% endblock %}
 
-    <script src="{{ asset('assets/assets/vendor/js/helpers.js') }}"></script>
-    <script src="{{ asset('assets/assets/vendor/js/template-customizer.js') }}"></script>
-    <script src="{{ asset('assets/assets/js/config.js') }}"></script>
-  </head>
-
-  <body>
+{% block content %}
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
@@ -40,40 +15,64 @@
             <div class="card-body">
               <div class="app-brand justify-content-center mb-4">
                 <span class="app-brand-logo demo">
-                  <!-- Logo here -->
+                  <!-- Logo ici -->
                 </span>
-                <span class="app-brand-text demo text-heading fw-bold">Your App</span>
+                <span class="app-brand-text demo text-heading fw-bold">solplus</span>
               </div>
 
               <h4 class="mb-1">Créer un compte 👋</h4>
               <p class="mb-6">Remplissez les champs pour vous inscrire</p>
 
-              {% if errors %}
-                <div class="alert alert-danger">
-                  <ul class="mb-0">
-                    {% for field, messages in errors %}
-                      {% for message in messages %}
-                        <li><strong>{{ field|capitalize }} :</strong> {{ message }}</li>
-                      {% endfor %}
-                    {% endfor %}
-                  </ul>
-                </div>
-              {% endif %}
-
               <form method="POST" action="{{ path('app_register') }}">
                 <div class="mb-3">
                   <label class="form-label" for="nom">Nom</label>
-                  <input type="text" id="nom" name="nom" class="form-control" placeholder="Entrez votre nom" required />
+                  <input type="text" 
+                         id="nom" 
+                         name="nom" 
+                         class="form-control {% if errors.nom is defined %}is-invalid{% endif %}" 
+                         placeholder="Entrez votre nom" 
+                         required />
+                  {% if errors.nom is defined %}
+                    <div class="invalid-feedback">
+                      {% for message in errors.nom %}
+                        {{ message }}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label" for="prenom">Prénom</label>
-                  <input type="text" id="prenom" name="prenom" class="form-control" placeholder="Entrez votre prénom" required />
+                  <input type="text" 
+                         id="prenom" 
+                         name="prenom" 
+                         class="form-control {% if errors.prenom is defined %}is-invalid{% endif %}" 
+                         placeholder="Entrez votre prénom" 
+                         required />
+                  {% if errors.prenom is defined %}
+                    <div class="invalid-feedback">
+                      {% for message in errors.prenom %}
+                        {{ message }}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
                 </div>
 
                 <div class="mb-3">
                   <label class="form-label" for="email">Email</label>
-                  <input type="email" id="email" name="email" class="form-control" placeholder="Entrez votre email" required />
+                  <input type="email" 
+                         id="email" 
+                         name="email" 
+                         class="form-control {% if errors.email is defined %}is-invalid{% endif %}" 
+                         placeholder="Entrez votre email" 
+                         required />
+                  {% if errors.email is defined %}
+                    <div class="invalid-feedback">
+                      {% for message in errors.email %}
+                        {{ message }}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
                 </div>
 
                 <div class="mb-3 form-password-toggle">
@@ -83,10 +82,17 @@
                       type="password"
                       id="plainPassword"
                       name="plainPassword"
-                      class="form-control"
+                      class="form-control {% if errors.plainPassword is defined %}is-invalid{% endif %}"
                       placeholder="********"
                       required />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                    {% if errors.plainPassword is defined %}
+                      <div class="invalid-feedback">
+                        {% for message in errors.plainPassword %}
+                          {{ message }}
+                        {% endfor %}
+                      </div>
+                    {% endif %}
                   </div>
                 </div>
 
@@ -105,13 +111,4 @@
         </div>
       </div>
     </div>
-
-    {% block javascripts %}
-      <script src="{{ asset('assets/assets/vendor/libs/popper/popper.js') }}"></script>
-      <script src="{{ asset('assets/assets/vendor/js/bootstrap.js') }}"></script>
-      <script src="{{ asset('assets/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-      <script src="{{ asset('assets/assets/vendor/js/menu.js') }}"></script>
-      <script src="{{ asset('assets/assets/js/main.js') }}"></script>
-    {% endblock %}
-  </body>
-</html>
+{% endblock %}
